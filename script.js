@@ -21,103 +21,105 @@ function addMinutes(durationText, extraMinutes) {
   return `${baseMinutes + extraMinutes} мин.`;
 }
 
-// Order: bottom of the Cal.com list to top, as requested.
-// Services that had a separate "+ декорации" event type on Cal.com are
-// merged into ONE card with a toggle: "Без декорации" / "Със декорации".
 // Every decorated variant (including Френски/Омбре, folded into the same
 // category) adds 1-5 EUR and +15 minutes to the base service.
 const services = [
   {
+    category: "manicure",
     name: "Маникюр без лак",
-    description: "Оформяне на нокти и кутикула, без лак.",
     variants: [
       { label: null, duration: "30 мин.", price: price(10), calUrl: calUrl("m-no-polish") }
     ]
   },
   {
+    category: "manicure",
     name: "Класически маникюр с гел лак",
-    description: "Класически маникюр с покритие с гел лак.",
-    note: "Декорациите включват и френски/омбре ефект — изберете „Със декорации“ за тях.",
+    note: "Декорациите включват и френски/омбре ефект.",
     variants: [
       { label: "Без декорации", duration: "120 мин.", price: price(28), calUrl: calUrl("класически-маникюр-с-гел-лак") },
       { label: "Със декорации", duration: addMinutes("120 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(28)), calUrl: calUrl("класически-маникюр-с-гел-лак-и-декорации") }
     ]
   },
   {
-    name: "Маникюр с гел лак — изравняване с каучукова база (къси нокти)",
-    description: "Изравняване на нокътната плочка с каучукова база и гел лак.",
+    category: "manicure",
+    name: "Маникюр с гел лак — каучукова база (къси нокти)",
     variants: [
       { label: "Без декорации", duration: "120 мин.", price: price(30), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти") },
       { label: "Със декорации", duration: addMinutes("120 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(30)), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-декорации") }
     ]
   },
   {
-    name: "Маникюр с гел лак — изравняване с каучукова база (дълги нокти)",
-    description: "Изравняване на нокътната плочка с каучукова база и гел лак.",
+    category: "manicure",
+    name: "Маникюр с гел лак — каучукова база (дълги нокти)",
     variants: [
       { label: "Без декорации", duration: "150 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти") },
       { label: "Със декорации", duration: addMinutes("150 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(40)), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-декорации") }
     ]
   },
   {
+    category: "manicure",
     name: "Лепене / подложка от гел",
-    description: "Лепене на нокти или подложка от гел.",
     variants: [
       { label: null, duration: "30 мин.", price: price(3), calUrl: calUrl("лепене-подложка-от-гел") }
     ]
   },
   {
+    category: "manicure",
     name: "Изграждане на нокът",
-    description: "Изграждане на единичен счупен или увреден нокът.",
     variants: [
       { label: null, duration: "30 мин.", price: price(5), calUrl: calUrl("изграждане-на-нокът") }
     ]
   },
   {
+    category: "manicure",
     name: "Цялостно изграждане на нокти",
-    description: "Пълно изграждане на нокти с гел.",
     variants: [
       { label: "Без декорации", duration: "150 мин.", price: price(60), calUrl: calUrl("цялостно-изграждане-на-нокти") },
       { label: "Със декорации", duration: addMinutes("150 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(60)), calUrl: calUrl("цялостно-изграждане-на-нокти-декорации") }
     ]
   },
   {
+    category: "pedicure",
     name: "Педикюр без лак",
-    description: "Оформяне на нокти и грижа за ходилата, без лак.",
     variants: [
       { label: null, duration: "90 мин.", price: price(30), calUrl: calUrl("педикюр-без-лак") }
     ]
   },
   {
+    category: "pedicure",
     name: "Педикюр с обикновен лак",
-    description: "Педикюр с покритие с обикновен лак.",
     variants: [
       { label: null, duration: "90 мин.", price: price(35), calUrl: calUrl("педикюр-с-обикновен-лак") }
     ]
   },
   {
+    category: "pedicure",
     name: "Педикюр с гел лак",
-    description: "Педикюр с дълготрайно покритие с гел лак.",
     variants: [
       { label: null, duration: "120 мин.", price: price(40), calUrl: calUrl("педикюр-с-гел-лак") }
     ]
   },
   {
+    category: "pedicure",
     name: "Частичен педикюр",
-    description: "Освежаване и оформяне без цялостна процедура.",
     variants: [
       { label: null, duration: "60 мин.", price: price(20), calUrl: calUrl("частичен-педикюр") }
     ]
   }
 ];
 
-const servicesGrid = document.getElementById("services-grid");
+const categories = [
+  { id: "manicure", label: "Маникюр" },
+  { id: "pedicure", label: "Педикюр" }
+];
+
+const servicesPanel = document.getElementById("services-panel");
 const calContainer = document.getElementById("cal-container");
 const bookingTitle = document.getElementById("booking-title");
 const bookingPrice = document.getElementById("booking-price");
 
-// Tracks which variant (0 or 1) is currently selected per service index.
-const selectedVariant = services.map(() => 0);
+let activeCategory = categories[0].id;
+let expandedServiceIndex = null;
 
 function formatPrice(p) {
   if (p.min === p.max) {
@@ -127,78 +129,112 @@ function formatPrice(p) {
 }
 
 function earlyPrice(p) {
-  return price(Math.round(p.min * 1.5 * 100) / 100, Math.round(p.max * 1.5 * 100) / 100);
+  return price(
+    Math.round(p.min * 1.5 * 100) / 100,
+    Math.round(p.max * 1.5 * 100) / 100
+  );
 }
 
-function renderServices() {
-  servicesGrid.innerHTML = services
-    .map((service, index) => {
-      const variantIndex = selectedVariant[index];
-      const variant = service.variants[variantIndex];
+function renderPanel() {
+  const tabsHtml = categories
+    .map(
+      (cat) => `
+        <button
+          type="button"
+          class="category-tab ${cat.id === activeCategory ? "active" : ""}"
+          data-category="${cat.id}"
+        >
+          ${cat.label}
+        </button>
+      `
+    )
+    .join("");
 
-      const toggleHtml =
-        service.variants.length > 1
-          ? `
-            <div class="variant-toggle" data-service-index="${index}">
-              ${service.variants
-                .map(
-                  (v, vIndex) => `
-                    <button
-                      type="button"
-                      class="variant-button ${vIndex === variantIndex ? "active" : ""}"
-                      data-variant-index="${vIndex}"
-                    >
-                      ${v.label}
-                    </button>
-                  `
-                )
-                .join("")}
-            </div>
+  const rowsHtml = services
+    .map((service, index) => {
+      if (service.category !== activeCategory) {
+        return "";
+      }
+
+      const hasVariants = service.variants.length > 1;
+      const isExpanded = expandedServiceIndex === index;
+
+      // Show a range across variants when collapsed with multiple options,
+      // otherwise show the single variant's price.
+      const displayPrice = hasVariants
+        ? price(
+            service.variants[0].price.min,
+            service.variants[service.variants.length - 1].price.max
+          )
+        : service.variants[0].price;
+
+      const displayDuration = hasVariants
+        ? service.variants[0].duration
+        : service.variants[0].duration;
+
+      const chevron = hasVariants
+        ? `<span class="service-row-chevron">›</span>`
+        : "";
+
+      const rowHtml = `
+        <div
+          class="service-row ${isExpanded ? "expanded" : ""}"
+          data-service-index="${index}"
+        >
+          <div class="service-row-info">
+            <span class="service-row-name">${service.name}</span>
+            <span class="service-row-duration">${displayDuration}</span>
+          </div>
+          <div class="service-row-right">
+            <span class="service-row-price">${formatPrice(displayPrice)}</span>
+            ${chevron}
+          </div>
+        </div>
+      `;
+
+      if (!hasVariants || !isExpanded) {
+        return rowHtml;
+      }
+
+      const pillsHtml = service.variants
+        .map(
+          (variant, variantIndex) => `
+            <button
+              type="button"
+              class="variant-pill"
+              data-service-index="${index}"
+              data-variant-index="${variantIndex}"
+            >
+              <span>${variant.label} · ${variant.duration}</span>
+              <span class="variant-pill-price">${formatPrice(variant.price)}</span>
+            </button>
           `
-          : "";
+        )
+        .join("");
 
       const noteHtml = service.note
         ? `<p class="service-note">${service.note}</p>`
         : "";
 
       return `
-        <article class="service-card">
-          <h3>${service.name}</h3>
-
-          <p class="service-description">
-            ${service.description}
-          </p>
-
-          ${toggleHtml}
-
-          <div class="service-meta">
-            <span>${variant.duration}</span>
-            <span>${formatPrice(variant.price)}</span>
-          </div>
-
-          <button
-            class="book-button"
-            type="button"
-            data-service-index="${index}"
-          >
-            Изберете час
-          </button>
-
-          <div class="early-notice">
-            При начален час преди 10:00 ч.:
-            <strong>${formatPrice(earlyPrice(variant.price))}</strong>
-          </div>
-
+        ${rowHtml}
+        <div class="variant-panel">
+          ${pillsHtml}
           ${noteHtml}
-        </article>
+        </div>
       `;
     })
     .join("");
+
+  servicesPanel.innerHTML = `
+    <div class="category-tabs">${tabsHtml}</div>
+    <div class="services-list" id="services-list">${rowsHtml}</div>
+  `;
 }
 
-function openBooking(serviceIndex) {
+function openBooking(serviceIndex, variantIndex) {
   const service = services[serviceIndex];
-  const variant = service.variants[selectedVariant[serviceIndex]];
+  const variant = service.variants[variantIndex];
 
   const variantSuffix = variant.label ? ` — ${variant.label}` : "";
   bookingTitle.textContent = `${service.name}${variantSuffix}`;
@@ -228,25 +264,39 @@ function openBooking(serviceIndex) {
     .scrollIntoView({ behavior: "smooth" });
 }
 
-servicesGrid.addEventListener("click", (event) => {
-  const variantButton = event.target.closest(".variant-button");
+servicesPanel.addEventListener("click", (event) => {
+  const tabButton = event.target.closest(".category-tab");
 
-  if (variantButton) {
-    const toggle = variantButton.closest(".variant-toggle");
-    const serviceIndex = Number(toggle.dataset.serviceIndex);
-    const variantIndex = Number(variantButton.dataset.variantIndex);
-
-    selectedVariant[serviceIndex] = variantIndex;
-    renderServices();
+  if (tabButton) {
+    activeCategory = tabButton.dataset.category;
+    expandedServiceIndex = null;
+    renderPanel();
     return;
   }
 
-  const bookButton = event.target.closest(".book-button");
+  const variantPill = event.target.closest(".variant-pill");
 
-  if (bookButton) {
-    const serviceIndex = Number(bookButton.dataset.serviceIndex);
-    openBooking(serviceIndex);
+  if (variantPill) {
+    const serviceIndex = Number(variantPill.dataset.serviceIndex);
+    const variantIndex = Number(variantPill.dataset.variantIndex);
+    openBooking(serviceIndex, variantIndex);
+    return;
+  }
+
+  const row = event.target.closest(".service-row");
+
+  if (row) {
+    const serviceIndex = Number(row.dataset.serviceIndex);
+    const service = services[serviceIndex];
+
+    if (service.variants.length > 1) {
+      expandedServiceIndex =
+        expandedServiceIndex === serviceIndex ? null : serviceIndex;
+      renderPanel();
+    } else {
+      openBooking(serviceIndex, 0);
+    }
   }
 });
 
-renderServices();
+renderPanel();
