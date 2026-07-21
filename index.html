@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Запази час</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="hero-content">
+      <img
+        src="images/hero.png"
+        alt="V.Y's Nails"
+        class="hero-image"
+      >
+
+      <p>
+        Изберете услуга и запазете удобно своя час онлайн.
+      </p>
+
+      <a href="#services" class="button">
+        Запазете час
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="services" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Услуги</p>
+        <h2>Изберете процедура</h2>
+
+        <p>
+          Работно време: понеделник – събота, 08:00 – 20:00 ч.
+          За часове с начало преди 10:00 ч. се начисляват
+          50% върху редовната цена на услугата.
+        </p>
+      </div>
+
+      <div id="services-grid" class="services-grid">
+        <!-- Services will be inserted with JavaScript -->
+      </div>
+    </section>
+
+    <section id="booking" class="section booking-section">
+      <div class="section-heading">
+        <p class="eyebrow">Онлайн записване</p>
+        <h2 id="booking-title">Изберете услуга</h2>
+
+        <p id="booking-price">
+          Важно: за часове с начало преди 10:00 ч. се начисляват 50% върху
+          редовната цена, независимо от часа на приключване.
+        </p>
+      </div>
+
+      <div id="cal-container" class="cal-container">
+        <p class="empty-message">
+          Изберете услуга, за да видите свободните часове.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
