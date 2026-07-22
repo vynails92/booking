@@ -237,13 +237,37 @@ body {
   background: white;
 }
 
-.cal-container {
+.cal-card {
   width: min(1100px, 100%);
-  min-height: 500px;
   margin: 0 auto;
-  overflow: hidden;
   border: 1px solid #eadedb;
   border-radius: 24px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.surcharge-banner {
+  padding: 14px 24px;
+  background: #8e5f68;
+  color: white;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.price-line-main {
+  display: block;
+  font-size: 18px;
+}
+
+.price-line-early {
+  display: block;
+  font-size: 14px;
+}
+
+.cal-container {
+  min-height: 500px;
+  overflow: hidden;
   background: #fff;
 }
 
