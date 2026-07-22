@@ -17,7 +17,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 56px 24px 64px;
+  padding: 56px 24px 24px;
   text-align: center;
   background: #fffaf8;
 }
@@ -65,7 +65,7 @@ body {
 }
 
 .section {
-  padding: 90px 24px;
+  padding: 48px 24px;
 }
 
 .section-heading {
@@ -292,7 +292,7 @@ body {
 
 @media (max-width: 580px) {
   .hero {
-    padding: 40px 18px 48px;
+    padding: 40px 18px 20px;
   }
 
   .hero-image {
@@ -300,7 +300,7 @@ body {
   }
 
   .section {
-    padding: 64px 18px;
+    padding: 36px 18px;
   }
 
   .category-tab {
