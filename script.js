@@ -42,7 +42,7 @@ const services = [
   },
   {
     category: "manicure",
-    name: "Маникюр с гел лак — каучукова база (къси нокти)",
+    name: "Маникюр с гел лак – каучукова база (къси нокти)",
     variants: [
       { label: "Без декорации", duration: "120 мин.", price: price(30), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти") },
       { label: "Със декорации", duration: addMinutes("120 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(30)), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-декорации") }
@@ -50,7 +50,7 @@ const services = [
   },
   {
     category: "manicure",
-    name: "Маникюр с гел лак — каучукова база (дълги нокти)",
+    name: "Маникюр с гел лак – каучукова база (дълги нокти)",
     variants: [
       { label: "Без декорации", duration: "150 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти") },
       { label: "Със декорации", duration: addMinutes("150 мин.", DECORATION_EXTRA_MINUTES), price: addDecoration(price(40)), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-декорации") }
@@ -159,8 +159,6 @@ function renderPanel() {
       const hasVariants = service.variants.length > 1;
       const isExpanded = expandedServiceIndex === index;
 
-      // Show a range across variants when collapsed with multiple options,
-      // otherwise show the single variant's price.
       const displayPrice = hasVariants
         ? price(
             service.variants[0].price.min,
@@ -236,14 +234,12 @@ function openBooking(serviceIndex, variantIndex) {
   const service = services[serviceIndex];
   const variant = service.variants[variantIndex];
 
-  const variantSuffix = variant.label ? ` — ${variant.label}` : "";
+  const variantSuffix = variant.label ? ` – ${variant.label}` : "";
   bookingTitle.textContent = `${service.name}${variantSuffix}`;
 
   bookingPrice.innerHTML = `
-    Редовна цена:
-    <strong>${formatPrice(variant.price)}</strong>.
-    При начален час преди 10:00 ч.:
-    <strong>${formatPrice(earlyPrice(variant.price))}</strong>.
+    <span class="price-line-main">Редовна цена: <strong>${formatPrice(variant.price)}</strong>.</span>
+    <span class="price-line-early">При начален час преди 10:00 ч.: <strong>${formatPrice(earlyPrice(variant.price))}</strong>.</span>
   `;
 
   const separator = variant.calUrl.includes("?") ? "&" : "?";
