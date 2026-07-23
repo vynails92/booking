@@ -2,7 +2,7 @@
 // PRICES COME FROM A GOOGLE SHEET — see setup instructions.
 // Replace the URL below with your own published sheet's CSV link.
 // ============================================================
-const PRICE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWxbLidvgvW9AyvupoeJd7Y-Q6V2ojU-9dFG7wUX_zIp92CCXmajpJ0YO3Xzmn9uFvSXoNRJTWgSdN/pubhtml";
+const PRICE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWxbLidvgvW9AyvupoeJd7Y-Q6V2ojU-9dFG7wUX_zIp92CCXmajpJ0YO3Xzmn9uFvSXoNRJTWgSdN/pub?output=csv"
 
 const CAL_USERNAME = "вероника-иорданова-rdlmso";
 
