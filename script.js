@@ -336,4 +336,101 @@ function renderPanel() {
               data-variant-index="${variantIndex}"
             >
               <span>${variant.label} · ${variant.duration}</span>
-              <span class="variant-pill-price">${form
+              <span class="variant-pill-price">${formatPrice(variant.price)}</span>
+            </button>
+          `
+        )
+        .join("");
+
+      const noteHtml = service.note
+        ? `<p class="service-note">${service.note}</p>`
+        : "";
+
+      return `
+        ${rowHtml}
+        <div class="variant-panel">
+          ${pillsHtml}
+          ${noteHtml}
+        </div>
+      `;
+    })
+    .join("");
+
+  servicesPanel.innerHTML = `
+    <div class="category-tabs">${tabsHtml}</div>
+    <div class="services-list" id="services-list">${rowsHtml}</div>
+  `;
+}
+
+function openBooking(serviceIndex, variantIndex) {
+  const service = services[serviceIndex];
+  const variant = service.variants[variantIndex];
+
+  const variantSuffix = variant.label ? ` – ${variant.label}` : "";
+  bookingTitle.textContent = `${service.name}${variantSuffix}`;
+
+  bookingPrice.innerHTML = `
+    <span class="price-line-main">Редовна цена: <strong>${formatPrice(variant.price)}</strong>.</span>
+    <span class="price-line-early">При начален час преди 10:00 ч. или след 18:00 ч.: <strong>${formatPrice(earlyPrice(variant.price))}</strong>.</span>
+  `;
+
+  const separator = variant.calUrl.includes("?") ? "&" : "?";
+  const embedUrl = `${variant.calUrl}${separator}embed=true&theme=light`;
+
+  calContainer.innerHTML = `
+    <iframe
+      class="cal-frame"
+      src="${embedUrl}"
+      title="Запазване на час за ${service.name}"
+      loading="lazy"
+      allow="payment"
+    ></iframe>
+  `;
+
+  document
+    .getElementById("booking")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+servicesPanel.addEventListener("click", (event) => {
+  const tabButton = event.target.closest(".category-tab");
+
+  if (tabButton) {
+    activeCategory = tabButton.dataset.category;
+    expandedServiceIndex = null;
+    renderPanel();
+    return;
+  }
+
+  const variantPill = event.target.closest(".variant-pill");
+
+  if (variantPill) {
+    const serviceIndex = Number(variantPill.dataset.serviceIndex);
+    const variantIndex = Number(variantPill.dataset.variantIndex);
+    openBooking(serviceIndex, variantIndex);
+    return;
+  }
+
+  const row = event.target.closest(".service-row");
+
+  if (row) {
+    const serviceIndex = Number(row.dataset.serviceIndex);
+    const service = services[serviceIndex];
+
+    if (service.variants.length > 1) {
+      expandedServiceIndex =
+        expandedServiceIndex === serviceIndex ? null : serviceIndex;
+      renderPanel();
+    } else {
+      openBooking(serviceIndex, 0);
+    }
+  }
+});
+
+async function init() {
+  renderPanel(); // show fallback data immediately, no flash of empty content
+  await loadServicesFromSheet();
+  renderPanel(); // re-render with live sheet data once it arrives
+}
+
+init();
