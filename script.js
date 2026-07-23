@@ -17,70 +17,13 @@ function price(min, max) {
   return { min: minNum, max: maxNum };
 }
 
-// Order below matches the order of events in the Cal.com dashboard.
+// Order below matches the order on the printed V.Y's Nails price list.
 const FALLBACK_SERVICES = [
   {
     category: "manicure",
-    name: "Поддръжка на гел (под 30 дни)",
-    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
+    name: "Маникюр без лак",
     variants: [
-      { label: "Без декорации", duration: "150 мин.", price: price(45), calUrl: calUrl("поддръжка-на-гел-под-30-дни") },
-      { label: "Със декорации", duration: "165 мин.", price: price(46, 50), calUrl: calUrl("поддръжка-на-гел-под-30-дни-декорации") },
-      { label: "Френски/Омбре", duration: "165 мин.", price: price(50), calUrl: calUrl("поддръжка-на-гел-под-30-дни-френски-омбре-маникюр") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Цялостно изграждане на нокти с гел + гел лак",
-    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
-    variants: [
-      { label: "Без декорации", duration: "150 мин.", price: price(50, 60), calUrl: calUrl("цялостно-изграждане-на-нокти") },
-      { label: "Със декорации", duration: "165 мин.", price: price(51, 65), calUrl: calUrl("цялостно-изграждане-на-нокти-декорации") },
-      { label: "Френски/Омбре", duration: "165 мин.", price: price(55, 65), calUrl: calUrl("цялостно-изграждане-на-нокти-френски-омбре-маникюр") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Изграждане на нокът (1 бр.)",
-    variants: [
-      { label: null, duration: "30 мин.", price: price(5), calUrl: calUrl("изграждане-на-нокът") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Лепене / подложка от гел (1 бр.)",
-    variants: [
-      { label: null, duration: "30 мин.", price: price(3), calUrl: calUrl("лепене-подложка-от-гел") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Маникюр с гел лак – каучукова база (дълги нокти)",
-    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
-    variants: [
-      { label: "Без декорации", duration: "150 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти") },
-      { label: "Със декорации", duration: "165 мин.", price: price(41, 45), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-декорации") },
-      { label: "Френски/Омбре", duration: "165 мин.", price: price(45), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-френски-омбре-маникюр") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Маникюр с гел лак – каучукова база (къси нокти)",
-    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
-    variants: [
-      { label: "Без декорации", duration: "120 мин.", price: price(35), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти") },
-      { label: "Със декорации", duration: "135 мин.", price: price(36, 40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-декорации") },
-      { label: "Френски/Омбре", duration: "135 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-френски-омбре-маникюр") }
-    ]
-  },
-  {
-    category: "manicure",
-    name: "Класически маникюр с гел лак (дълги нокти)",
-    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
-    variants: [
-      { label: "Без декорации", duration: "120 мин.", price: price(35), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти") },
-      { label: "Със декорации", duration: "120 мин.", price: price(36, 40), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти-декорации") },
-      { label: "Френски/Омбре", duration: "120 мин.", price: price(40), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти-френски-омбре-маникюр") }
+      { label: null, duration: "30 мин.", price: price(12), calUrl: calUrl("m-no-polish") }
     ]
   },
   {
@@ -95,23 +38,73 @@ const FALLBACK_SERVICES = [
   },
   {
     category: "manicure",
-    name: "Маникюр без лак",
+    name: "Класически маникюр с гел лак (дълги нокти)",
+    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
     variants: [
-      { label: null, duration: "30 мин.", price: price(12), calUrl: calUrl("m-no-polish") }
+      { label: "Без декорации", duration: "120 мин.", price: price(35), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти") },
+      { label: "Със декорации", duration: "120 мин.", price: price(36, 40), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти-декорации") },
+      { label: "Френски/Омбре", duration: "120 мин.", price: price(40), calUrl: calUrl("класически-маникюр-с-гел-лак-дълги-нокти-френски-омбре-маникюр") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Маникюр с гел лак+изравняване с каучукова база (къси нокти)",
+    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
+    variants: [
+      { label: "Без декорации", duration: "120 мин.", price: price(35), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти") },
+      { label: "Със декорации", duration: "135 мин.", price: price(36, 40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-декорации") },
+      { label: "Френски/Омбре", duration: "135 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-къси-нокти-френски-омбре-маникюр") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Маникюр с гел лак+изравняване с каучукова база (дълги нокти)",
+    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
+    variants: [
+      { label: "Без декорации", duration: "150 мин.", price: price(40), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти") },
+      { label: "Със декорации", duration: "165 мин.", price: price(41, 45), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-декорации") },
+      { label: "Френски/Омбре", duration: "165 мин.", price: price(45), calUrl: calUrl("маникюр-с-гел-лак-изравняване-с-каучукова-база-дълги-нокти-френски-омбре-маникюр") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Лепене / подложка от гел (1 бр.)",
+    variants: [
+      { label: null, duration: "30 мин.", price: price(3), calUrl: calUrl("лепене-подложка-от-гел") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Изграждане на нокът (1 бр.)",
+    variants: [
+      { label: null, duration: "30 мин.", price: price(5), calUrl: calUrl("изграждане-на-нокът") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Цялостно изграждане на нокти с гел + гел лак",
+    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
+    variants: [
+      { label: "Без декорации", duration: "150 мин.", price: price(50, 60), calUrl: calUrl("цялостно-изграждане-на-нокти") },
+      { label: "Със декорации", duration: "165 мин.", price: price(51, 65), calUrl: calUrl("цялостно-изграждане-на-нокти-декорации") },
+      { label: "Френски/Омбре", duration: "165 мин.", price: price(55, 65), calUrl: calUrl("цялостно-изграждане-на-нокти-френски-омбре-маникюр") }
+    ]
+  },
+  {
+    category: "manicure",
+    name: "Поддръжка на гел (под 30 дни)",
+    note: "Декорация: +1–5 €. Френски/Омбре: +5 €.",
+    variants: [
+      { label: "Без декорации", duration: "150 мин.", price: price(45), calUrl: calUrl("поддръжка-на-гел-под-30-дни") },
+      { label: "Със декорации", duration: "165 мин.", price: price(46, 50), calUrl: calUrl("поддръжка-на-гел-под-30-дни-декорации") },
+      { label: "Френски/Омбре", duration: "165 мин.", price: price(50), calUrl: calUrl("поддръжка-на-гел-под-30-дни-френски-омбре-маникюр") }
     ]
   },
   {
     category: "pedicure",
-    name: "Частичен педикюр с гел лак",
+    name: "Педикюр без лак",
     variants: [
-      { label: null, duration: "60 мин.", price: price(25), calUrl: calUrl("частичен-педикюр") }
-    ]
-  },
-  {
-    category: "pedicure",
-    name: "Педикюр с гел лак",
-    variants: [
-      { label: null, duration: "120 мин.", price: price(40), calUrl: calUrl("педикюр-с-гел-лак") }
+      { label: null, duration: "90 мин.", price: price(30), calUrl: calUrl("педикюр-без-лак") }
     ]
   },
   {
@@ -123,9 +116,16 @@ const FALLBACK_SERVICES = [
   },
   {
     category: "pedicure",
-    name: "Педикюр без лак",
+    name: "Педикюр с гел лак",
     variants: [
-      { label: null, duration: "90 мин.", price: price(30), calUrl: calUrl("педикюр-без-лак") }
+      { label: null, duration: "120 мин.", price: price(40), calUrl: calUrl("педикюр-с-гел-лак") }
+    ]
+  },
+  {
+    category: "pedicure",
+    name: "Частичен педикюр с гел лак",
+    variants: [
+      { label: null, duration: "60 мин.", price: price(25), calUrl: calUrl("частичен-педикюр") }
     ]
   }
 ];
@@ -336,101 +336,4 @@ function renderPanel() {
               data-variant-index="${variantIndex}"
             >
               <span>${variant.label} · ${variant.duration}</span>
-              <span class="variant-pill-price">${formatPrice(variant.price)}</span>
-            </button>
-          `
-        )
-        .join("");
-
-      const noteHtml = service.note
-        ? `<p class="service-note">${service.note}</p>`
-        : "";
-
-      return `
-        ${rowHtml}
-        <div class="variant-panel">
-          ${pillsHtml}
-          ${noteHtml}
-        </div>
-      `;
-    })
-    .join("");
-
-  servicesPanel.innerHTML = `
-    <div class="category-tabs">${tabsHtml}</div>
-    <div class="services-list" id="services-list">${rowsHtml}</div>
-  `;
-}
-
-function openBooking(serviceIndex, variantIndex) {
-  const service = services[serviceIndex];
-  const variant = service.variants[variantIndex];
-
-  const variantSuffix = variant.label ? ` – ${variant.label}` : "";
-  bookingTitle.textContent = `${service.name}${variantSuffix}`;
-
-  bookingPrice.innerHTML = `
-    <span class="price-line-main">Редовна цена: <strong>${formatPrice(variant.price)}</strong>.</span>
-    <span class="price-line-early">При начален час преди 10:00 ч. или след 18:00 ч.: <strong>${formatPrice(earlyPrice(variant.price))}</strong>.</span>
-  `;
-
-  const separator = variant.calUrl.includes("?") ? "&" : "?";
-  const embedUrl = `${variant.calUrl}${separator}embed=true&theme=light`;
-
-  calContainer.innerHTML = `
-    <iframe
-      class="cal-frame"
-      src="${embedUrl}"
-      title="Запазване на час за ${service.name}"
-      loading="lazy"
-      allow="payment"
-    ></iframe>
-  `;
-
-  document
-    .getElementById("booking")
-    .scrollIntoView({ behavior: "smooth" });
-}
-
-servicesPanel.addEventListener("click", (event) => {
-  const tabButton = event.target.closest(".category-tab");
-
-  if (tabButton) {
-    activeCategory = tabButton.dataset.category;
-    expandedServiceIndex = null;
-    renderPanel();
-    return;
-  }
-
-  const variantPill = event.target.closest(".variant-pill");
-
-  if (variantPill) {
-    const serviceIndex = Number(variantPill.dataset.serviceIndex);
-    const variantIndex = Number(variantPill.dataset.variantIndex);
-    openBooking(serviceIndex, variantIndex);
-    return;
-  }
-
-  const row = event.target.closest(".service-row");
-
-  if (row) {
-    const serviceIndex = Number(row.dataset.serviceIndex);
-    const service = services[serviceIndex];
-
-    if (service.variants.length > 1) {
-      expandedServiceIndex =
-        expandedServiceIndex === serviceIndex ? null : serviceIndex;
-      renderPanel();
-    } else {
-      openBooking(serviceIndex, 0);
-    }
-  }
-});
-
-async function init() {
-  renderPanel(); // show fallback data immediately, no flash of empty content
-  await loadServicesFromSheet();
-  renderPanel(); // re-render with live sheet data once it arrives
-}
-
-init();
+              <span class="variant-pill-price">${form
