@@ -371,7 +371,7 @@ function openBooking(serviceIndex, variantIndex) {
 
   bookingPrice.innerHTML = `
     <span class="price-line-main">Редовна цена: <strong>${formatPrice(variant.price)}</strong>.</span>
-    <span class="price-line-early">При начален час преди 10:00 ч. или след 18:00 ч.: <strong>${formatPrice(earlyPrice(variant.price))}</strong>.</span>
+    <span class="price-line-early">При начален час преди 10:00 ч.: <strong>${formatPrice(earlyPrice(variant.price))}</strong>.</span>
   `;
 
   const separator = variant.calUrl.includes("?") ? "&" : "?";
